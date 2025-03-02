@@ -31,9 +31,8 @@ func (s operationService) Add(a, b big.Float) (big.Float, error) {
 		OperandB: b,
 		Operator: Addition,
 	}
-	res := *a.Add(&a, &b)
-	op.Result = res
-	return res, s.repo.AddOperation(op)
+	op.Result = *a.Add(&a, &b)
+	return op.Result, s.repo.AddOperation(op)
 }
 
 func (s operationService) Subtract(a, b big.Float) (big.Float, error) {
@@ -42,9 +41,8 @@ func (s operationService) Subtract(a, b big.Float) (big.Float, error) {
 		OperandB: b,
 		Operator: Addition,
 	}
-	res := *a.Sub(&a, &b)
-	op.Result = res
-	return res, s.repo.AddOperation(op)
+	op.Result = *a.Sub(&a, &b)
+	return op.Result, s.repo.AddOperation(op)
 }
 
 func (s operationService) Multiply(a, b big.Float) (big.Float, error) {
@@ -53,9 +51,8 @@ func (s operationService) Multiply(a, b big.Float) (big.Float, error) {
 		OperandB: b,
 		Operator: Addition,
 	}
-	res := *a.Mul(&a, &b)
-	op.Result = res
-	return res, s.repo.AddOperation(op)
+	op.Result = *a.Mul(&a, &b)
+	return op.Result, s.repo.AddOperation(op)
 }
 
 func (s operationService) Divide(a, b big.Float) (big.Float, error) {
@@ -67,9 +64,8 @@ func (s operationService) Divide(a, b big.Float) (big.Float, error) {
 		OperandB: b,
 		Operator: Addition,
 	}
-	res := *a.Quo(&a, &b)
-	op.Result = res
-	return res, s.repo.AddOperation(op)
+	op.Result = *a.Quo(&a, &b)
+	return op.Result, s.repo.AddOperation(op)
 }
 
 func (s operationService) GetRecentN(n int) ([]Operation, error) {

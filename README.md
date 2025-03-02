@@ -18,5 +18,5 @@ POST http://localhost:8080/divide
 get last 5:
 
 ```
-GET http://localhost:8080/getRecentN
+GET http://localhost:8080/getRecentN?n=7
 ```

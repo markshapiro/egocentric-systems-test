@@ -5,6 +5,7 @@ import (
 	"io"
 	"math/big"
 	"net/http"
+	"strconv"
 )
 
 type OperationHandler struct {
@@ -160,7 +161,21 @@ func (t OperationHandler) getRecentN(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case r.Method == http.MethodGet:
 
-		result, err := t.service.GetRecentN(5)
+		n := r.URL.Query().Get("n")
+		num, err := strconv.Atoi(n)
+		if err != nil {
+			http.Error(w, "Bad Request", http.StatusBadRequest)
+			return
+		}
+
+		if num < 5 {
+			num = 5
+		}
+		if num > 20 {
+			num = 20
+		}
+
+		result, err := t.service.GetRecentN(num)
 		if err != nil {
 			http.Error(w, "Internal Error", http.StatusInternalServerError)
 			return
