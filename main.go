@@ -1,12 +1,14 @@
 package main
 
 import (
+	"context"
 	"egocentric-systems-test/calculator"
 	"fmt"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 func main() {
@@ -37,4 +39,13 @@ func main() {
 	<-stop
 
 	fmt.Println("Stopping Server...")
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	if err := server.Shutdown(ctx); err != nil {
+		fmt.Println("Server forced to shutdown:", err)
+	} else {
+		fmt.Println("Server gracefully stopped")
+	}
 }
